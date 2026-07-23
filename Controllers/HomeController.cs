@@ -3,23 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using BibliotecaMVC.Models;
 
 namespace BibliotecaMVC.Controllers;
-
 public class HomeController : Controller
 {
     public IActionResult Index()
     {
         return View();
     }
-    
-    public IActionResult Libros()
-    {
-		return View();
-	}
-	
-	public IActionResult Autores()
-    {
-		return View();
-	}
 	
 	public IActionResult Categorias()
     {
