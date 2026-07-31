@@ -1,0 +1,25 @@
+@model BibliotecaMVC.Models.Autor
+
+@{
+	ViewData["Title"] = "Detalles del Autor";
+}
+
+<div class="row">
+		<div class="col-md-6">
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5>@Model.Nombre @Model.Apellido</h5>
+            <h6>@Model.Nacionalidad</h6>
+            <p>@Model.FechaNacimiento.ToString("dd/MM/yyyy")</p>
+            <small>Id:@Model.ID</small>
+            <p>Activo:@if(Model.Activo){
+				<span class="badge bg-success">Si</span>
+			}else{
+				<span class="badge bg-danger">No</span>
+			}</p>
+			
+			<a asp-action="Index" class="btn btn-primary">Volver</a>
+        </div>
+    </div>
+</div>
+</div>

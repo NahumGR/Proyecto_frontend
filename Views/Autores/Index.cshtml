@@ -1,39 +1,24 @@
-@using BibliotecaMVC.Models
+@model IEnumerable<BibliotecaMVC.Models.Autor>
 
 @{
-	List<Autor> autores = ViewBag.Autores;
+	ViewData["Title"] = "Listado de Autores";
 }
-<hr />
 <h2>Catálogo de Autores</h2>
+<h2>Hay @Model.Count() Autores registrados</h2>	
 
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Nombres</th>
-			<th>Apellidos</th>
-			<th>Nacionalidad</th>
-			<th>Fecha de Nacimiento</th>
-			<th>Activo</th>
-		</tr>
-	</thead>
-	
-	<tbody>
-	@foreach(var autor in autores){
-	<tr>
-		<td>@autor.ID</td>
-		<td>@autor.Nombre</td>
-		<td>@autor.Apellido</td>
-		<td>@autor.Nacionalidad</td>
-		<td>@autor.FechaNacimiento</td>
-		<td>
-			@if(autor.Activo){
-				<span class="badge bg-success">Si</span>
-			}else{
-				<span class="badge bg-danger">No</span>
-			}
-			</td>
-		</tr>
-	}
-	</tbody>
-</table>
+<a class="btn btn-primary" asp-action="Create">Nuevo Autor +</a>
+<div class="row">
+@foreach(var autor in Model){
+<div class="col-md-6">
+	<div class="card mb-3">
+        <div class="card-body">
+            <h5>@autor.Nombre @autor.Apellido</h5>
+            <h6>@autor.Nacionalidad</h6>
+			<a asp-action="Details" asp-route-id="@autor.ID">Ver</a>
+			<a asp-action="Edit" asp-route-id="@autor.ID">Editar</a>
+			<a asp-action="Delete" asp-route-id="@autor.ID" class="btn btn-danger btn-sm">Eliminar</a>
+        </div>
+    </div>
+</div>
+}
+</div>

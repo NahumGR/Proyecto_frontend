@@ -4,9 +4,7 @@ namespace BibliotecaMVC.Controllers;
 
 public class LibrosController : Controller
 {
-    public IActionResult Index()
-    {
-		List<Libro> libros = new List<Libro>()
+	private static List<Libro> _libros = new List<Libro>()
 		{
 			new Libro{
 				ID= 1,
@@ -57,7 +55,110 @@ public class LibrosController : Controller
 				Disponible = true
 			},
 		};
-		ViewBag.Libros = libros;
-        return View();
+    
+    public IActionResult Index(){
+        return View(_libros);
     }
+    
+    public IActionResult Details(int id)
+{
+    var libro = _libros.FirstOrDefault(x => x.ID == id);
+
+    if (libro == null)
+    {
+        return NotFound();
+    }
+
+    return View(libro);
+}
+    
+    
+    public IActionResult Create(){
+		return View();
+	}
+	
+	
+	[HttpPost]
+	[ValidateAntiForgeryToken]
+	public IActionResult Create(Libro libro){
+		if (!ModelState.IsValid){
+			return View(libro);
+		}
+		
+		if (_libros.Any()){
+			libro.ID= _libros.Max(x => x.ID) +1;	
+		}else{
+			libro.ID= 1;	
+		}
+		
+		_libros.Add(libro);
+		return RedirectToAction(nameof(Index));
+	}
+    
+    public IActionResult Edit(int id)
+{
+    var libro = _libros.FirstOrDefault(x => x.ID == id);
+
+    if (libro == null)
+    {
+        return NotFound();
+    }
+
+    return View(libro);
+}
+
+[HttpPost]
+[ValidateAntiForgeryToken]
+public IActionResult Edit(int id, Libro libro)
+{
+    if (id != libro.ID)
+    {
+        return NotFound();
+    }
+
+    if (!ModelState.IsValid)
+    {
+        return View(libro);
+    }
+
+    var libroExistente = _libros.FirstOrDefault(x => x.ID == id);
+    if (libroExistente == null)
+    {
+        return NotFound();
+    }
+
+    libroExistente.Titulo = libro.Titulo;
+    libroExistente.Autor = libro.Autor;
+    libroExistente.Categoria = libro.Categoria;
+    libroExistente.Precio = libro.Precio;
+    libroExistente.Disponible = libro.Disponible;
+
+    return RedirectToAction(nameof(Index));
+}
+
+public IActionResult Delete(int id)
+{
+    var libro = _libros.FirstOrDefault(x => x.ID == id);
+
+    if (libro == null)
+    {
+        return NotFound();
+    }
+
+    return View(libro);
+}
+
+[HttpPost, ActionName("Delete")]
+[ValidateAntiForgeryToken]
+public IActionResult DeleteConfirmed(int id)
+{
+    var libro = _libros.FirstOrDefault(x => x.ID == id);
+
+    if (libro != null)
+    {
+        _libros.Remove(libro);
+    }
+
+    return RedirectToAction(nameof(Index));
+}
 }

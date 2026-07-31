@@ -1,0 +1,32 @@
+@model BibliotecaMVC.Models.Libro
+
+@{
+    ViewData["Title"] = "Detalles del Libro";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>@Model.Titulo</h5>
+                <h6>@Model.Autor</h6>
+                <p>Categoría: @Model.Categoria</p>
+                <p>Precio: $@Model.Precio</p>
+                <small>Id: @Model.ID</small>
+                <p>
+                    Estado:
+                    @if (Model.Disponible)
+                    {
+                        <span class="badge bg-success">Disponible</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Prestado</span>
+                    }
+                </p>
+
+                <a asp-action="Index" class="btn btn-primary">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>
