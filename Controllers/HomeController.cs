@@ -12,7 +12,8 @@ public class HomeController : Controller
 	
 	public IActionResult Categorias()
     {
-		return View();
+
+		return RedirectToAction("Index", "Categorias");
 	}
 	
 	public IActionResult Usuarios()

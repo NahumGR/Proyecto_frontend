@@ -12,7 +12,8 @@ public class LibrosController : Controller
 				Autor = "Robert Martin",
 				Categoria = "Programación",
 				Precio = 35.4M,
-				Disponible = true
+				Disponible = true, 
+				ImagenUrl = "clean_code.png"
 			},
 			new Libro{
 				ID= 2,
@@ -20,7 +21,8 @@ public class LibrosController : Controller
 				Autor = "Gabriel García Marquez",
 				Categoria = "Literatura",
 				Precio = 19,
-				Disponible = false
+				Disponible = false,
+				ImagenUrl= "Cien_años_de_soledad.png"
 			},
 			new Libro{
 				ID= 3,
@@ -28,7 +30,8 @@ public class LibrosController : Controller
 				Autor = "Joanne Rowling",
 				Categoria = "Fantasia",
 				Precio = 25,
-				Disponible = false
+				Disponible = false,
+				ImagenUrl= "Harry_Potter.jpg"
 			},
 			new Libro{
 				ID= 4,
@@ -36,7 +39,8 @@ public class LibrosController : Controller
 				Autor = "Miguel de Cervantes",
 				Categoria = "Comedia Aventura",
 				Precio = 25,
-				Disponible = true
+				Disponible = true,
+				ImagenUrl="don_quijote.jpg"
 			},
 			new Libro{
 				ID= 5,
@@ -44,7 +48,8 @@ public class LibrosController : Controller
 				Autor = "Isabel Allende",
 				Categoria = "Comedia Aventura",
 				Precio = 27,
-				Disponible = false
+				Disponible = false,
+				ImagenUrl="casa_espiritus.jpg"
 			},
 			new Libro{
 				ID= 6,
@@ -52,7 +57,8 @@ public class LibrosController : Controller
 				Autor = "Salvador Arrué",
 				Categoria = "narrativo",
 				Precio = 27,
-				Disponible = true
+				Disponible = true,
+				ImagenUrl ="cuentos_barro.jpg"
 			},
 		};
     

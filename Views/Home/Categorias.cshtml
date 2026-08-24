@@ -1,8 +1,20 @@
+@model List<BibliotecaMVC.Models.Categoria>
 @{
 	ViewData["Title"]= "Categorias";
 }
 
-<div class="text-center">
-	<h1>Gestion de categorías</h1>
-	<p>En este modulo se administraran las categorías de los libros</p>
+<h2>Categorias Disponible</h2>
+
+<div class="row">
+@foreach (var categoria in Model){
+    <div class="col-md-4">
+        <div class="card mb-3">
+        <img src="~/imagenes/@categoria.ImagenUrl" class="card-img-top" style="height: 250px; object-fit: cover;" />
+            <div class="card-body">
+                <h5>@categoria.Nombre</h5>
+                <p>@categoria.Descripcion</p>
+            </div>
+        </div>
+    </div>
+}
 </div>

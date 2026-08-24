@@ -7,7 +7,23 @@
 <div class="row">
     <div class="col-md-6">
         <div class="card mb-3">
-            <div class="card-body">
+            <div class="row g-0">
+
+                <div class="col-md-4 d-flex align-items-center justify-content-center p-2">
+                    @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+                    {
+                        <img src="/imagenes/@Model.ImagenUrl" class="img-fluid rounded-start" style="max-height: 250px; object-fit: cover;">
+                    }
+                    else
+                    {
+                        <img src="~/imageness/no-image.png" class="img-fluid rounded-start" alt="Sin imagen" style="max-height: 250px;">
+                    }
+                </div>
+
+                <div class="col-md-8">
+                    <div class="card-body">
+                    
+
                 <h5>@Model.Titulo</h5>
                 <h6>@Model.Autor</h6>
                 <p>Categoría: @Model.Categoria</p>
@@ -26,6 +42,10 @@
                 </p>
 
                 <a asp-action="Index" class="btn btn-primary">Volver</a>
+                    
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

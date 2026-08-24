@@ -12,22 +12,21 @@
 {
     <div class="col-md-4">
         <div class="card mb-3">
+        <img src="~/imagenes/@libro.ImagenUrl" class="card-img-top" alt="@libro.Titulo" style="height: 250px; object-fit: cover;" />
             <div class="card-body">
                 <h5>@libro.Titulo</h5>
                 <h6>@libro.Autor</h6>
                 <p>@libro.Categoria — $@libro.Precio</p>
-                @if (libro.Disponible)
-                {
+                @if (libro.Disponible){
                     <span class="badge bg-success">Disponible</span>
                 }
-                else
-                {
+                else{
                     <span class="badge bg-danger">Prestado</span>
                 }
                 
                 <a asp-action="Details" asp-route-id="@libro.ID">Ver detalle</a>
                 <a asp-action="Edit" asp-route-id="@libro.ID" >Editar</a>
-<a asp-action="Delete" asp-route-id="@libro.ID">Eliminar</a>
+				<a asp-action="Delete" asp-route-id="@libro.ID">Eliminar</a>
             </div>
         </div>
     </div>
