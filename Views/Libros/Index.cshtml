@@ -1,8 +1,9 @@
-@model List<BibliotecaMVC.Models.Libro>
+@model IEnumerable<BibliotecaMVC.Models.Libro>
+
 
 @{
     ViewData["Title"] = "Libros";
-}
+}   
 <h2>Catálogo de libros</h2>
 
 <a class="btn btn-primary mb-3" asp-action="Create">Nuevo Libro +</a>
