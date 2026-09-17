@@ -1,0 +1,40 @@
+@model IEnumerable<BibliotecaMVC.Models.Categoria>
+
+@{
+	ViewData["Title"]= "Categorias";
+}
+
+<h2>Categorias Disponible</h2>
+
+<a class="btn btn-primary" asp-controller="Categorias" asp-action="Create">Añadir categoria</a> 
+<div class="row">
+@foreach (var categoria in Model){
+    <div class="col-md-4">
+        <div class="card mb-3">
+        <img src="~/imagenes/@categoria.ImagenUrl" class="card-img-top" style="height: 250px; object-fit: cover;" />
+            <div class="card-body">
+                <h5>@categoria.Nombre</h5>
+                <p>@categoria.Descripcion</p>
+            </div>
+            <a asp-action="Editar" asp-route-id="@categoria.ID" class="btn btn-success btn-sm">Editar</a>
+            <a asp-action="Eliminar" asp-route-id="@categoria.ID" class="btn btn-warning btn-sm">Eliminar</a>
+        </div>
+    </div>
+}
+</div>
+
+
+@section Scripts{
+    <script>
+        var mensaje = '@(TempData["SuccessMessage"] ?? "")';
+        if (mensaje) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: mensaje,
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
+    </script>
+}
