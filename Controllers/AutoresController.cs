@@ -1,24 +1,25 @@
+using BibliotecaMVC.Data;
 using Microsoft.AspNetCore.Mvc;
 using BibliotecaMVC.Models;
 using BibliotecaMVC.Repositories;
+using Microsoft.EntityFrameworkCore;
 
-namespace BibliotecaMVC.Controllers
-{
+namespace BibliotecaMVC.Controllers{
     public class AutoresController : Controller{
-        private readonly IRepositorioAutor _repositorio;
 
-        public AutoresController(IRepositorioAutor repositorio){
-            _repositorio = repositorio;
+        private readonly BibliotecaContext _context;
+
+        public AutoresController(BibliotecaContext context){
+            _context = context;
         }
 
-        public IActionResult Index()
-        {
-            return View(_repositorio.ObtenerTodos());
+        public async Task<IActionResult> Index(){
+            var autores = await _context.Autores.ToListAsync();
+            return View(autores);
         }
         
-        public IActionResult Details(int id)
-        {
-            var autor = _repositorio.ObtenerPorId(id);
+        public async Task<IActionResult> Details(int id){
+            var autor = await _context.Autores.FindAsync(id);
             if (autor == null)
             {
                 return NotFound(); 
@@ -26,27 +27,24 @@ namespace BibliotecaMVC.Controllers
             return View(autor);
         }
         
-        public IActionResult Create()
-{
+        public IActionResult Create(){
             return View();
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Autor autor)
-        {
-            if (!ModelState.IsValid)
-            {
+        public async Task<IActionResult> Create(Autor autor){
+            if (!ModelState.IsValid){
                 return View(autor);
             }            
-        _repositorio.Agregar(autor);
+            _context.Autores.Add(autor);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
         
-        public IActionResult Edit(int id){
-            var autor = _repositorio.ObtenerPorId(id);
-            if (autor == null)
-            {
+        public async Task<IActionResult> Edit(int id){
+            var autor = await _context.Autores.FindAsync(id);
+            if (autor == null){
                 return NotFound();
             }
             return View(autor);
@@ -54,30 +52,27 @@ namespace BibliotecaMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Autor autor){
-            if (id != autor.ID)
-            {
-             return NotFound();
+        public async Task<IActionResult> Edit(int id, Autor autor){
+            if (id != autor.ID){return NotFound();}
+
+            if (!ModelState.IsValid){return View(autor);}
+
+            try{
+                _context.Update(autor);
+                await _context.SaveChangesAsync();
+            }catch (DbUpdateException){
+                if (!_context.Autores.Any(e => e.ID == autor.ID)){
+                    return NotFound();
+                }
+                throw;
             }
 
-            if (!ModelState.IsValid)
-            {
-                return View(autor);
-            }
-
-            var autorExistente = _repositorio.ObtenerPorId(id);
-            if (autorExistente == null)
-            {
-       return NotFound();
-            }
-
-            _repositorio.Actualizar(autor);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var autor = _repositorio.ObtenerPorId(id);
+            var autor = await _context.Autores.FindAsync(id);
             if (autor == null)
             {
                 return NotFound();
@@ -87,10 +82,14 @@ namespace BibliotecaMVC.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)    {
-            _repositorio.Eliminar(id);
+        public async Task<IActionResult> DeleteConfirmed(int id) {
+
+            var autor = await _context.Autores.FindAsync(id);
+            if (autor != null){
+                _context.Autores.Remove(autor);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
     }
 }
-
