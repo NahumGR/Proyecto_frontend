@@ -4,48 +4,67 @@
     ViewData["Title"] = "Detalles del Libro";
 }
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="card mb-3">
-            <div class="row g-0">
-
-                <div class="col-md-4 d-flex align-items-center justify-content-center p-2">
-                    @if (!string.IsNullOrEmpty(Model.ImagenUrl))
-                    {
-                        <img src="/imagenes/@Model.ImagenUrl" class="img-fluid rounded-start" style="max-height: 250px; object-fit: cover;">
-                    }
-                    else
-                    {
-                        <img src="~/imageness/no-image.png" class="img-fluid rounded-start" alt="Sin imagen" style="max-height: 250px;">
-                    }
+<div class="row justify-content-center my-4">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="h4 fw-light mb-0">@ViewData["Title"]</h1>
+                    <span class="bg-light text-muted border px-2 py-1 rounded small">ID: #@Model.ID</span>
                 </div>
 
-                <div class="col-md-8">
-                    <div class="card-body">
-                    
-
-                <h5>@Model.Titulo</h5>
-                <h6>@Model.Autor</h6>
-                <p>Categoría: @Model.Categoria</p>
-                <p>Precio: $@Model.Precio</p>
-                <small>Id: @Model.ID</small>
-                <p>
-                    Estado:
-                    @if (Model.Disponible)
-                    {
-                        <span class="badge bg-success">Disponible</span>
-                    }
-                    else
-                    {
-                        <span class="badge bg-danger">Prestado</span>
-                    }
-                </p>
-
-                <a asp-action="Index" class="btn btn-primary">Volver</a>
-                    
+                <div class="row g-4 align-items-center mb-4">
+                    <div class="col-auto">
+                        @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+                        {
+                            <img src="~/imagenes/@Model.ImagenUrl" 
+                                 class="rounded-2" 
+                                 style="width: 100px; height: 140px; object-fit: cover;" 
+                                 alt="@Model.Titulo">
+                        }
+                        else
+                        {
+                            <img src="~/imagenes/no-image.jpg" 
+                                 class="rounded-2" 
+                                 style="width: 100px; height: 140px; object-fit: cover;" 
+                                 alt="Sin imagen">
+                        }
+                    </div>
+                    <div class="col">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <h5 class="mb-0 fw-semibold">@Model.Titulo</h5>
+                            @if (Model.Disponible)
+                            {
+                                <span class="badge bg-success-subtle text-success border border-success-subtle rounded">Disponible</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded">Prestado</span>
+                            }
+                        </div>
+                        <p class="text-muted mb-2">@Model.Autor</p>
+                        
+                        <div class="pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <small class="text-muted d-block">Categoría</small>
+                                    <span class="small fw-medium">@Model.Categoria</span>
+                                </div>
+                                <div class="text-end">
+                                    <small class="text-muted d-block">Precio</small>
+                                    <span class="small fw-semibold text-dark">$@Model.Precio</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <div class="d-flex align-items-center justify-content-between pt-3 border-top">
+                    <a asp-action="Index" class="btn btn-link text-muted text-decoration-none btn-sm px-0">Volver</a>
+                    <div class="d-flex gap-2">
+                        <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-dark btn-sm rounded-pill px-3">Editar</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

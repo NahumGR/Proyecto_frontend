@@ -15,7 +15,7 @@ public class CategoriasController : Controller{
     public IActionResult Index(){
 		var categorias = new List<Categoria>();
 		using (var conexion = new SqlConnection(_connectionString)){
-			var sql = "SELECT ID, Nombre, Descripcion, ImagenUrl FROM Categorias";
+			var sql = "SELECT ID, Nombre, Descripcion, ImagenUrl FROM Categoria";
 
 			using (var comando = new SqlCommand(sql, conexion)){
 				conexion.Open();
@@ -51,7 +51,7 @@ public class CategoriasController : Controller{
     	}
 
 		using (var conexion = new SqlConnection(_connectionString)){
-			var sql = "INSERT INTO Categorias (Nombre, Descripcion) VALUES (@Nombre, @Descripcion)";
+			var sql = "INSERT INTO Categoria (Nombre, Descripcion) VALUES (@Nombre, @Descripcion)";
 
 			using (var comando = new SqlCommand(sql, conexion)){
 				comando.Parameters.AddWithValue("@Nombre", categoria.Nombre);
@@ -70,7 +70,7 @@ public class CategoriasController : Controller{
     {
         Categoria? categoria = null;
         using (var conexion = new SqlConnection(_connectionString)){
-            var sql = "SELECT ID, Nombre, Descripcion, ImagenURL FROM Categorias WHERE ID = @id";
+            var sql = "SELECT ID, Nombre, Descripcion, ImagenURL FROM Categoria WHERE ID = @id";
 
             using (var comando = new SqlCommand(sql, conexion)){
                 comando.Parameters.AddWithValue("@id", id);
@@ -105,7 +105,7 @@ public class CategoriasController : Controller{
         }
 
         using (var conexion = new SqlConnection(_connectionString)){
-            var sql = "UPDATE Categorias SET Nombre = @Nombre, Descripcion = @Descripcion WHERE ID = @ID";
+            var sql = "UPDATE Categoria SET Nombre = @Nombre, Descripcion = @Descripcion WHERE ID = @ID";
 
             using (var comando = new SqlCommand(sql, conexion)){
                 comando.Parameters.AddWithValue("@ID", categoria.ID);
@@ -125,7 +125,7 @@ public class CategoriasController : Controller{
 	public IActionResult Details(int id){
         Categoria? categoria = null;
         using (var conexion = new SqlConnection(_connectionString)){
-            var sql = "SELECT ID, Nombre, Descripcion, ImagenURL FROM Categorias WHERE ID = @id";
+            var sql = "SELECT ID, Nombre, Descripcion, ImagenURL FROM Categoria WHERE ID = @id";
 
             using (var comando = new SqlCommand(sql, conexion)){
                 comando.Parameters.AddWithValue("@id", id);
@@ -153,7 +153,7 @@ public class CategoriasController : Controller{
     {
         Categoria? categoria = null;
         using (var conexion = new SqlConnection(_connectionString)){
-            var sql = "SELECT ID, Nombre, Descripcion, ImagenURL FROM Categorias WHERE ID = @id";
+            var sql = "SELECT ID, Nombre, Descripcion, ImagenURL FROM Categoria WHERE ID = @id";
 
             using (var comando = new SqlCommand(sql, conexion)){
                 comando.Parameters.AddWithValue("@id", id);
@@ -182,7 +182,7 @@ public class CategoriasController : Controller{
     public IActionResult EliminarConfirmed(int id)
     {
         using (var conexion = new SqlConnection(_connectionString)){
-            var sql = "DELETE FROM Categorias WHERE ID = @ID";
+            var sql = "DELETE FROM Categoria WHERE ID = @ID";
 
             using (var comando = new SqlCommand(sql, conexion)){
                 comando.Parameters.AddWithValue("@ID", id);

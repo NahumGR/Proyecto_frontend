@@ -1,25 +1,54 @@
 @model BibliotecaMVC.Models.Autor
 
 @{
-	ViewData["Title"] = "Detalles del Autor";
+    ViewData["Title"] = "Detalles del Autor";
 }
 
-<div class="row">
-		<div class="col-md-6">
-    <div class="card mb-3">
-        <div class="card-body">
-            <h5>@Model.Nombre @Model.Apellido</h5>
-            <h6>@Model.Nacionalidad</h6>
-            <p>@Model.FechaNacimiento.ToString("dd/MM/yyyy")</p>
-            <small>Id:@Model.ID</small>
-            <p>Activo:@if(Model.Activo){
-				<span class="badge bg-success">Si</span>
-			}else{
-				<span class="badge bg-danger">No</span>
-			}</p>
-			
-			<a asp-action="Index" class="btn btn-primary">Volver</a>
+<div class="row justify-content-center my-4">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="h4 fw-light mb-0">@ViewData["Title"]</h1>
+                    <span class="bg-light text-muted border">ID: #@Model.ID</span>
+                </div>
+
+                <div class="row g-4 align-items-center mb-4">
+                    <div class="col-auto">
+                        @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+                        {
+                            <img src="~/imagenes/@Model.ImagenUrl" 
+                                 class="rounded-2" 
+                                 style="width: 100px; height: 140px; object-fit: cover;" 
+                                 alt="@Model.Nombre @Model.Apellido">
+                        }
+                    </div>
+                    <div class="col">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <h5 class="mb-0 fw-semibold">@Model.Nombre @Model.Apellido</h5>
+                            @if (Model.Activo)
+                            {
+                                <span class="badge bg-success-subtle text-success border border-success-subtle rounded">Activo</span>
+                            } else{
+                                <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle rounded">Inactivo</span>
+                            }
+                        </div>
+                        <p class="text-muted mb-2">@Model.Nacionalidad</p>
+                        
+                        <div class="pt-2 border-top">
+                            <small class="text-muted d-block">Fecha de Nacimiento</small>
+                            <span class="small fw-medium">@Model.FechaNacimiento.ToString("dd/MM/yyyy")</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between pt-3 border-top">
+                    <a asp-action="Index" class="btn btn-link text-muted text-decoration-none btn-sm px-0">Volver</a>
+                    <div class="d-flex gap-2">
+                        <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-dark btn-sm rounded-pill px-3">Editar</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 </div>

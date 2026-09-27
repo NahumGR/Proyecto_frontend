@@ -9,11 +9,9 @@ namespace BibliotecaMVC.Controllers;
 public class LibrosController : Controller{
 
     private readonly BibliotecaContext _context;
-    private readonly IRepositorioLibro _repositorio;
 
-    public LibrosController(BibliotecaContext context, IRepositorioLibro repositorio){
+    public LibrosController(BibliotecaContext context){
         _context = context;
-        _repositorio = repositorio;
     }
 
     public async Task<IActionResult> Index(){
@@ -49,8 +47,8 @@ public class LibrosController : Controller{
 		return RedirectToAction(nameof(Index));
 	}
     
-    public IActionResult Edit(int id){
-        var libro = _repositorio.ObtenerPorId(id);
+    public async Task<IActionResult> Edit(int id){
+        var libro = await _context.Libros.FindAsync(id);
 
         if (libro == null){
             return NotFound();
@@ -61,32 +59,36 @@ public class LibrosController : Controller{
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(int id, Libro libro){
-        if (id != libro.ID)
-        {
-            return NotFound();
-        }
+    public async Task<IActionResult> Edit(int id, Libro libro){
+        if (id != libro.ID){ return NotFound();}
 
         if (!ModelState.IsValid)
         {
             return View(libro);
         }
 
-    var libroExistente = _repositorio.ObtenerPorId(id);
+    var libroExistente = await _context.Libros.FindAsync(id);
     if (libroExistente == null)
     {
         return NotFound();
     }
+    
+    libroExistente.Titulo = libro.Titulo;
+    libroExistente.Autor = libro.Autor;
+    libroExistente.Categoria = libro.Categoria;
+    libroExistente.Precio = libro.Precio;
+    libroExistente.Disponible = libro.Disponible;
+    libroExistente.ImagenUrl = libro.ImagenUrl;
 
-   _repositorio.Actualizar(libro);
+   _context.Libros.Update(libroExistente);
+   await _context.SaveChangesAsync();
 
     return RedirectToAction(nameof(Index));
 }
 
-public IActionResult Delete(int id)
+public async Task<IActionResult> Delete(int id)
 {
-    var libro = _repositorio.ObtenerPorId(id);
-
+    var libro = await _context.Libros.FindAsync(id);
     if (libro == null)
     {
         return NotFound();
@@ -97,9 +99,14 @@ public IActionResult Delete(int id)
 
 [HttpPost, ActionName("Delete")]
 [ValidateAntiForgeryToken]
-public IActionResult DeleteConfirmed(int id)
+public async Task<IActionResult> DeleteConfirmed(int id)
 {
-    _repositorio.Eliminar(id);
+     var libro = await _context.Libros.FindAsync(id);
+    if (libro != null)
+    {
+        _context.Libros.Remove(libro);
+        await _context.SaveChangesAsync();
+    }
     return RedirectToAction(nameof(Index));
 }
 }

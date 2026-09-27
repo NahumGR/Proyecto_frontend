@@ -20,6 +20,9 @@ namespace BibliotecaMVC.Models
 		public required DateTime  FechaNacimiento {get; set;}
 		
 		public bool  Activo {get; set;}
+        
+        public string? ImagenUrl {get; set;}
+        
 	}	
 	
 }

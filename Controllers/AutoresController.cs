@@ -61,7 +61,7 @@ namespace BibliotecaMVC.Controllers{
                 _context.Update(autor);
                 await _context.SaveChangesAsync();
             }catch (DbUpdateException){
-                if (!_context.Autores.Any(e => e.ID == autor.ID)){
+                if (!await _context.Autores.AnyAsync(e => e.ID == autor.ID)){
                     return NotFound();
                 }
                 throw;
