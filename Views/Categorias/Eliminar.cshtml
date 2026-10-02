@@ -1,21 +1,42 @@
 @model BibliotecaMVC.Models.Categoria
+
 @{
     ViewData["Title"] = "Eliminar Categoría";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="row justify-content-center my-4">
+    <div class="col-md-6 col-lg-5">
+        <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-body p-4 text-center">
 
-<h3>¿Estás seguro que quieres eliminar este autor?</h3>
+                <h1 class="h5 fw-normal mb-1">Eliminar categoría</h1>
+                <p class="text-muted small mb-4">¿Estás seguro de que deseas eliminar esta categoría?</p>
 
-<div class="card mb-3">
-    <div class="card-body">
-        <h5>@Model.Nombre</h5>
-        <h6>@Model.Descripcion</h6>
+                <div class="bg-light p-3 rounded-3 text-start mb-4">
+                    <div class="d-flex align-items-center gap-3">
+                        @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+                        {
+                            <img src="~/imagenes/@Model.ImagenUrl"
+                                 class="rounded-2"
+                                 style="width: 80px; height: 80px; object-fit: cover;"
+                                 alt="@Model.Nombre">
+                        }
+                        <div>
+                            <h6 class="mb-0 fw-semibold">@Model.Nombre</h6>
+                            <small class="text-muted d-block">@Model.Descripcion</small>
+                        </div>
+                    </div>
+                </div>
+
+                <form asp-action="Eliminar" method="post">
+                    <input type="hidden" asp-for="ID" />
+
+                    <div class="d-flex justify-content-center gap-2">
+                        <a asp-action="Index" class="btn btn-link text-muted text-decoration-none btn-sm">Cancelar</a>
+                        <button type="submit" class="btn btn-danger btn-sm rounded-pill px-4">Sí, eliminar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
-
-<form asp-action="Eliminar" method="post">
-    <input type="hidden" asp-for="ID" />
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-</form>

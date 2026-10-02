@@ -1,15 +1,33 @@
 using BibliotecaMVC.Repositories;
 using BibliotecaMVC.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<BibliotecaContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("BibliotecaDB")
-));
+builder.Services.AddSingleton<NumericRoundabortConnectionInterceptor>();
+builder.Services.AddDbContext<BibliotecaContext>((serviceProvider, options) =>
+{
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("BibliotecaDB"));
+
+    options.AddInterceptors(
+        serviceProvider.GetRequiredService<NumericRoundabortConnectionInterceptor>());
+});
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+})
+.AddEntityFrameworkStores<BibliotecaContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+});
 
 builder.Services.AddSingleton<IRepositorioLibro, RepositorioMemoria>();
 
@@ -27,8 +45,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapStaticAssets();
 
 app.MapControllerRoute(
@@ -38,3 +56,9 @@ app.MapControllerRoute(
 
 
 app.Run();
+
+
+
+
+
+
