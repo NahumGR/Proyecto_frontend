@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.105.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.12" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.12" />
@@ -15,6 +16,14 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.12" />
+    <PackageReference Include="QuestPDF" Version="2026.9.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="BibliotecaMVC.Tests/**" />
+    <Content Remove="BibliotecaMVC.Tests/**" />
+    <EmbeddedResource Remove="BibliotecaMVC.Tests/**" />
+    <None Remove="BibliotecaMVC.Tests/**" />
   </ItemGroup>
 
 </Project>

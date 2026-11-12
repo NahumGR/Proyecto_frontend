@@ -18,7 +18,12 @@
         <h1 class="h4 fw-light mb-0">Catálogo de Libros</h1>
         <small class="text-muted fs-7">@Model.Count() registrados</small>
     </div>
-    <a class="btn btn-dark btn-sm rounded-pill px-3" asp-action="Create">+ Nuevo Libro</a>
+    
+     @if (User.IsInRole("Admin") || User.IsInRole("Bibliotecario")){
+        
+        <a class="btn btn-dark btn-sm rounded-pill px-3" asp-action="Create">+ Nuevo Libro</a>
+         
+     }
 </div>
 
 <div class="row g-3">
@@ -52,10 +57,21 @@
                             </div>
                             <div class="d-flex gap-2 align-items-center pt-2 border-top">
                                 <a asp-action="Details" asp-route-id="@libro.ID" class="text-dark text-decoration-none small">Ver</a>
-                                <span class="text-muted opacity-25">|</span>
-                                <a asp-action="Edit" asp-route-id="@libro.ID" class="text-muted text-decoration-none small">Editar</a>
-                                <span class="text-muted opacity-25 ms-auto">|</span>
-                                <a asp-action="Delete" asp-route-id="@libro.ID" class="text-danger text-decoration-none small">Eliminar</a>
+                                
+                                 @if (User.IsInRole("Admin") || User.IsInRole("Bibliotecario")){
+                                     
+                                    
+                                    <span class="text-muted opacity-25">|</span>
+                                    <a asp-action="Edit" asp-route-id="@libro.ID" class="text-muted text-decoration-none small">Editar</a>
+                                     
+                                     
+                                 }
+                                 @if (User.IsInRole("Admin") || User.IsInRole("Bibliotecario")){
+                                    
+                                    <span class="text-muted opacity-25 ms-auto">|</span>
+                                    <a asp-action="Delete" asp-route-id="@libro.ID" class="text-danger text-decoration-none small">Eliminar</a>
+                                      
+                                  }
                             </div>
                         </div>
                     </div>

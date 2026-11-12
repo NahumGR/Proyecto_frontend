@@ -9,7 +9,13 @@
         <h1 class="h4 fw-light mb-0">@ViewData["Title"]</h1>
         <small class="text-muted fs-7">@Model.Count() registrados</small>
     </div>
-    <a class="btn btn-dark btn-sm rounded-pill px-3" asp-action="Create">+ Nuevo Autor</a>
+    @if (User.IsInRole("Admin") || User.IsInRole("Bibliotecario")){
+        <div class="d-flex gap-2 align-items-center">
+            <a class="btn btn-link text-muted text-decoration-none btn-sm" asp-action="Reporte" target="_blank" rel="noopener">Abrir reporte</a>
+            <a class="btn btn-danger btn-sm rounded-pill px-4" asp-action="DescargarReporte" target="_blank" rel="noopener"> Descargar PDF</a>
+            <a class="btn btn-dark btn-sm rounded-pill px-3" asp-action="Create">+ Nuevo Autor</a>
+        </div>
+    }
 </div>
 
 <div class="row g-3">

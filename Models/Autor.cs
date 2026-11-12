@@ -7,6 +7,7 @@ namespace BibliotecaMVC.Models
 	{
 		public int  ID {get; set;}
 		
+		[Required]
 		[StringLength(100)]
 		public required string Nombre {get; set;}
 		

@@ -1,0 +1,27 @@
+@model int
+
+@{
+    ViewData["Title"] = "Reportes";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h4 fw-light mb-0">@ViewData["Title"]</h1>
+        <small class="text-muted fs-7">@Model libros registrados</small>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-sm-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm rounded-3">
+            <div class="card-body p-3 d-flex flex-column justify-content-between">
+                    <h6 class="card-title mb-1 fw-semibold">Reporte de libros</h6>
+                <div class="d-flex gap-2 align-items-center flex-wrap pt-2 border-top">
+                    <a class="btn btn-link text-muted text-decoration-none btn-sm" asp-action="LibrosPdf" target="_blank" rel="noopener">Abrir reporte</a>
+                    <a class="btn btn-danger btn-sm rounded-pill px-4" asp-action="DescargarLibrosPdf">Generar reporte PDF</a>
+                    <a class="btn btn-dark btn-sm rounded-pill px-4" asp-action="ExportarLibrosExcel">Exportar a Excel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

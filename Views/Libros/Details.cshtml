@@ -62,7 +62,10 @@
                 <div class="d-flex align-items-center justify-content-between pt-3 border-top">
                     <a asp-action="Index" class="btn btn-link text-muted text-decoration-none btn-sm px-0">Volver</a>
                     <div class="d-flex gap-2">
-                        <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-dark btn-sm rounded-pill px-3">Editar</a>
+			@if (User.IsInRole("Admin") || User.IsInRole("Bibliotecario"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-dark btn-sm rounded-pill px-3">Editar</a>
+                        }
                     </div>
                 </div>
             </div>

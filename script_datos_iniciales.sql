@@ -26,3 +26,17 @@ INSERT INTO BibliotecaDB.dbo.Libros (Titulo,Autor,Categoria,Precio,Disponible,Im
      (N'Don Quijote',N'Miguel de Cervantes Saavedra',N'Comedia Aventura',25.00,1,N'don_quijote.jpg'),
      (N'La casa de los espíritus',N'Isabel Allende',N'Comedia Aventura',27.00,0,N'casa_espiritus.jpg'),
      (N'Cuentos de barro',N'Salvador Efraín Salazar Arrué',N'Narrativo',27.00,1,N'cuentos_barro.jpg');
+     
+
+INSERT INTO BibliotecaDB.dbo.AspNetRoles (Id,Name,NormalizedName,ConcurrencyStamp) VALUES
+    (N'a1000000-0000-0000-0000-000000000001',N'Admin',N'ADMIN',N'b1000000-0000-0000-0000-000000000001'),
+    (N'a1000000-0000-0000-0000-000000000002',N'Bibliotecario',N'BIBLIOTECARIO',N'b1000000-0000-0000-0000-000000000002'),
+    (N'a1000000-0000-0000-0000-000000000003',N'Usuario',N'USUARIO',N'b1000000-0000-0000-0000-000000000003');
+ 
+ INSERT INTO BibliotecaDB.dbo.AspNetUsers (Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnabled,AccessFailedCount) VALUES
+          (N'c1000000-0000-0000-0000-000000000001',N'admin',N'ADMIN',N'admin@biblioteca.com',N'ADMIN@BIBLIOTECA.COM',1,N'AQAAAAEAAYagAAAAEJ6jwIgS7NLqwCHqWUB59+DB84rFueS58rLwpAUfeQSonaLtYBc2fbUB0jpvxufhLA==',N'd1000000-0000-0000-0000-000000000001',N'e1000000-0000-0000-0000-000000000001',0,0,1,0),
+          (N'c1000000-0000-0000-0000-000000000002',N'bibliotecario',N'BIBLIOTECARIO',N'bibliotecario@biblioteca.com',N'BIBLIOTECARIO@BIBLIOTECA.COM',1,N'AQAAAAEAAYagAAAAEJ4lCCQTmEWdsykQysdxYjlzR8pqNvzbVMKMvGV3v+J/zDs45sNTBd7PRCU99g4Vtg==',N'd1000000-0000-0000-0000-000000000002',N'e1000000-0000-0000-0000-000000000002',0,0,1,0);
+ 
+     INSERT INTO BibliotecaDB.dbo.AspNetUserRoles (UserId,RoleId) VALUES
+          (N'c1000000-0000-0000-0000-000000000001',N'a1000000-0000-0000-0000-000000000001'),
+          (N'c1000000-0000-0000-0000-000000000002',N'a1000000-0000-0000-0000-000000000002');
